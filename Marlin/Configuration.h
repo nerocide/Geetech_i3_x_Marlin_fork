@@ -74,7 +74,7 @@
 // User-specified version info of this build to display in [Pronterface, etc] terminal window during
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
-#define STRING_CONFIG_H_AUTHOR "(JM Collongette, Geeetech I3 X)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(R. de Weerd, I3 Pro X)" // Who made the changes.
 #define SHOW_BOOTSCREEN
 #define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION // will be shown during bootup in line 1
 #define STRING_SPLASH_LINE2 WEBSITE_URL         // will be shown during bootup in line 2
@@ -124,7 +124,7 @@
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-//#define CUSTOM_MACHINE_NAME "3D Printer"
+#define CUSTOM_MACHINE_NAME "Geeetech i3 Pro X"
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -137,7 +137,7 @@
 #define EXTRUDERS 1
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
-#define DEFAULT_NOMINAL_FILAMENT_DIA 3.0
+#define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
 
 // For Cyclops or any "multi-extruder" that shares a single nozzle.
 //#define SINGLENOZZLE
@@ -424,7 +424,7 @@
 // This option prevents a single extrusion longer than EXTRUDE_MAXLENGTH.
 // Note that for Bowden Extruders a too-small value here may prevent loading.
 #define PREVENT_LENGTHY_EXTRUDE
-#define EXTRUDE_MAXLENGTH 200
+#define EXTRUDE_MAXLENGTH 300
 
 //===========================================================================
 //======================== Thermal Runaway Protection =======================
@@ -529,7 +529,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80,80,2560,93 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 2560, 93 }  // MXL, Z M8=1.25, MK8
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -544,7 +544,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 5000, 5000, 50, 5000 }
+#define DEFAULT_MAX_ACCELERATION      { 4000, 4000, 40, 4000 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -566,10 +566,10 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-#define DEFAULT_XJERK                 20.0
-#define DEFAULT_YJERK                 20.0
-#define DEFAULT_ZJERK                  0.4
-#define DEFAULT_EJERK                  5.0
+#define DEFAULT_XJERK                  5.0
+#define DEFAULT_YJERK                  5.0
+#define DEFAULT_ZJERK                  0.3
+#define DEFAULT_EJERK                  4.0
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -631,15 +631,15 @@
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
  */
-//#define Z_ENDSTOP_SERVO_NR 0   // Defaults to SERVO 0 connector.
-//#define Z_SERVO_ANGLES {70,0}  // Z Servo Deploy and Stow angles
+//#define Z_ENDSTOP_SERVO_NR 1   // Defaults to SERVO 0 connector.
+//#define Z_SERVO_ANGLES {10,90}  // Z Servo Deploy and Stow angles
 
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
 //#define BLTOUCH
 #if ENABLED(BLTOUCH)
-  //#define BLTOUCH_DELAY 375   // (ms) Enable and increase if needed
+  #define BLTOUCH_DELAY 375   // (ms) Enable and increase if needed
 #endif
 
 /**
@@ -683,9 +683,9 @@
  *      O-- FRONT --+
  *    (0,0)
  */
-#define X_PROBE_OFFSET_FROM_EXTRUDER -34  // X offset: -left  +right  [of the nozzle]
-#define Y_PROBE_OFFSET_FROM_EXTRUDER -36  // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -1.5   // Z offset: -below +above  [the nozzle]
+#define X_PROBE_OFFSET_FROM_EXTRUDER 10  // X offset: -left  +right  [of the nozzle]
+#define Y_PROBE_OFFSET_FROM_EXTRUDER 10  // Y offset: -front +behind [the nozzle]
+#define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle]
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
@@ -716,7 +716,7 @@
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
 #define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
+#define Z_CLEARANCE_BETWEEN_PROBES  6 // Z Clearance between probe points
 
 // For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -20
@@ -758,7 +758,7 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false
+#define INVERT_E0_DIR true
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
@@ -768,7 +768,7 @@
 
 //#define NO_MOTION_BEFORE_HOMING  // Inhibit movement until all axes have been homed
 
-//#define Z_HOMING_HEIGHT 4  // (in mm) Minimal z height before homing (G28) for Z clearance above the bed, clamps, ...
+#define Z_HOMING_HEIGHT 8  // (in mm) Minimal z height before homing (G28) for Z clearance above the bed, clamps, ...
                              // Be sure you have this distance over your Z_MAX_POS in case.
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
@@ -780,8 +780,8 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 200
-#define Y_BED_SIZE 200
+#define X_BED_SIZE 205
+#define Y_BED_SIZE 230
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -789,7 +789,7 @@
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 200
+#define Z_MAX_POS 170
 
 /**
  * Software Endstops
@@ -872,7 +872,7 @@
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
 //#define AUTO_BED_LEVELING_BILINEAR
-#define AUTO_BED_LEVELING_UBL
+//#define AUTO_BED_LEVELING_UBL
 //#define MESH_BED_LEVELING
 
 /**
@@ -897,7 +897,7 @@
   /**
    * Enable the G26 Mesh Validation Pattern tool.
    */
-  #define G26_MESH_VALIDATION   // Enable G26 mesh validation
+  //#define G26_MESH_VALIDATION   // Enable G26 mesh validation
   #if ENABLED(G26_MESH_VALIDATION)
     #define MESH_TEST_NOZZLE_SIZE     0.4   // (mm) Diameter of primary nozzle.
     #define MESH_TEST_LAYER_HEIGHT    0.2   // (mm) Default layer height for the G26 Mesh Validation Tool.
@@ -914,13 +914,13 @@
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
-  #define LEFT_PROBE_BED_POSITION 30
-  #define RIGHT_PROBE_BED_POSITION 164
-  #define FRONT_PROBE_BED_POSITION 30
-  #define BACK_PROBE_BED_POSITION 164
+  #define LEFT_PROBE_BED_POSITION 15
+  #define RIGHT_PROBE_BED_POSITION 170
+  #define FRONT_PROBE_BED_POSITION 20
+  #define BACK_PROBE_BED_POSITION 170
 
   // The Z probe minimum outer margin (to validate G29 parameters).
-  #define MIN_PROBE_EDGE 10
+  #define MIN_PROBE_EDGE 8
 
   // Probe along the Y axis, advancing X after each column
   //#define PROBE_Y_FIRST
@@ -1124,7 +1124,7 @@
 // every couple of seconds when it can't accept commands.
 //
 #define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
-#define DEFAULT_KEEPALIVE_INTERVAL 2  // Number of seconds between "busy" messages. Set with M113.
+#define DEFAULT_KEEPALIVE_INTERVAL 4  // Number of seconds between "busy" messages. Set with M113.
 #define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
 
 //
@@ -1149,8 +1149,8 @@
 #define PREHEAT_1_TEMP_BED     70
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
-#define PREHEAT_2_TEMP_HOTEND 240
-#define PREHEAT_2_TEMP_BED    110
+#define PREHEAT_2_TEMP_HOTEND 215
+#define PREHEAT_2_TEMP_BED    105
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
 /**
@@ -1164,7 +1164,7 @@
  *    P1  Raise the nozzle always to Z-park height.
  *    P2  Raise the nozzle by Z-park amount, limited to Z_MAX_POS.
  */
-#define NOZZLE_PARK_FEATURE
+//#define NOZZLE_PARK_FEATURE
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z }
@@ -1211,7 +1211,7 @@
  * Attention: EXPERIMENTAL. G-code arguments may change.
  *
  */
-#define NOZZLE_CLEAN_FEATURE
+//#define NOZZLE_CLEAN_FEATURE
 
 #if ENABLED(NOZZLE_CLEAN_FEATURE)
   // Default number of pattern repetitions
@@ -1264,7 +1264,7 @@
  *
  * View the current statistics with M78.
  */
-#define PRINTCOUNTER
+//#define PRINTCOUNTER
 
 //=============================================================================
 //============================= LCD and SD support ============================
@@ -1329,7 +1329,7 @@
  * you must uncomment the following option or it won't work.
  *
  */
-//#define SDSUPPORT
+#define SDSUPPORT
 
 /**
  * SD CARD: SPI SPEED
@@ -1409,8 +1409,8 @@
 // Note: Test audio output with the G-Code:
 //  M300 S<frequency Hz> P<duration ms>
 //
-//#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 100
-//#define LCD_FEEDBACK_FREQUENCY_HZ 1000
+#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 100
+#define LCD_FEEDBACK_FREQUENCY_HZ 1000
 
 //
 // CONTROLLER TYPE: Standard
@@ -1627,11 +1627,10 @@
 //#define CR10_STOCKDISPLAY
 
 //
-// MKS OLED 1.3" 128x64 FULL GRAPHICS CONTROLLER
+// MKS OLED 1.3" 128 × 64 FULL GRAPHICS CONTROLLER
 // http://reprap.org/wiki/MKS_12864OLED
 //
 // Tiny, but very sharp OLED display
-// If there is a pixel shift, try the other controller.
 //
 //#define MKS_12864OLED          // Uses the SH1106 controller (default)
 //#define MKS_12864OLED_SSD1306  // Uses the SSD1306 controller
@@ -1758,7 +1757,7 @@
  * Set this manually if there are extra servos needing manual control.
  * Leave undefined or set to 0 to entirely disable the servo subsystem.
  */
-//#define NUM_SERVOS 3 // Servo index starts with 0 for M280 command
+#define NUM_SERVOS 1 // Servo index starts with 0 for M280 command
 
 // Delay (in milliseconds) before the next move will start, to give the servo time to reach its target angle.
 // 300ms is a good value but you can try less delay.
